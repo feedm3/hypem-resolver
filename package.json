@@ -24,6 +24,7 @@
     "url": "https://github.com/feedm3/hypem-resolver/issues"
   },
   "dependencies": {
+    "lodash": "^3.10.0",
     "q": "^1.4.1",
     "request": "^2.58.0"
   },

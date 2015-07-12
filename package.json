@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Get the songs URL from a hypem URL",
   "homepage": "https://github.com/feedm3/hypem-resolver",
-  "main": "index.js",
+  "main": "hypem-resolver.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

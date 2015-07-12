@@ -13,5 +13,9 @@
     "converter"
   ],
   "author": "Fabian Dietenberger <piano.fabian@t-online.de>",
-  "license": "MIT"
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:feedm3/hypem-resolver.git"
+  }
 }

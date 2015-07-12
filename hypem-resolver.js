@@ -3,7 +3,8 @@
 'use-strict';
 
 var q = require('q'),
-    request = require('request');
+    request = require('request'),
+    _ = require('lodash');
 
 var hypemResolver = {};
 

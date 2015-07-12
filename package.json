@@ -5,7 +5,8 @@
   "homepage": "https://github.com/feedm3/hypem-resolver",
   "main": "hypem-resolver.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha ./test --recursive",
+    "test-watch-changes": "mocha ./test --recursive --watch"
   },
   "keywords": [
     "hypem",

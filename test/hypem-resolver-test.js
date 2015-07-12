@@ -7,31 +7,18 @@ var grizHypemId = "2c87x",
     grizHypemUrl = "http://hypem.com/track/2c87x",
     grizSoundcloudUrl = "https://soundcloud.com/griz/summer-97-ft-muzzy-bearr";
 
-describe('Get the songs URL with the hypem ID', function () {
-    describe('if the song is hosted on soundcloud', function () {
+describe('The song is hosted on soundcloud', function () {
+
+    describe('if the hypem id is given', function () {
+
         it('should return a soundcloud url', function (done) {
             var soundcloudUrl = hypemResolver.getById(grizHypemId);
             soundcloudUrl.should.be.a('string');
             soundcloudUrl.should.equal(grizSoundcloudUrl);
             done();
-        })
-    });
-});
+        });
 
-describe('Get the songs URL with the hypem URL', function () {
-    describe('if the song is hosted on soundcloud', function () {
-        it('should return a soundcloud url', function (done) {
-            var soundcloudUrl = hypemResolver.getByUrl(grizHypemUrl);
-            soundcloudUrl.should.be.a('string');
-            soundcloudUrl.should.equal(grizSoundcloudUrl);
-            done();
-        })
-    });
-});
-
-describe('Get the songs URL with the hypem ID async', function () {
-    describe('if the song is hosted on soundcloud', function () {
-        it('should return a soundcloud url', function (done) {
+        it('should also return a soundcloud url async', function (done) {
             hypemResolver.getByIdAsync(grizHypemId, function (soundcloudUrl) {
                 soundcloudUrl.should.be.a('string');
                 soundcloudUrl.should.equal(grizSoundcloudUrl);
@@ -39,16 +26,36 @@ describe('Get the songs URL with the hypem ID async', function () {
             });
         })
     });
-});
 
-describe('Get the songs URL with the hypem URL async', function () {
-    describe('if the song is hosted on soundcloud', function () {
+    describe('if the hypem url is given', function () {
         it('should return a soundcloud url', function (done) {
+            var soundcloudUrl = hypemResolver.getByUrl(grizHypemUrl);
+            soundcloudUrl.should.be.a('string');
+            soundcloudUrl.should.equal(grizSoundcloudUrl);
+            done();
+        });
+
+        it('should ignore leading and ending whitspace', function (done) {
+            var soundcloudUrl = hypemResolver.getByUrl("    " + grizHypemUrl + "   ");
+            soundcloudUrl.should.be.a('string');
+            soundcloudUrl.should.equal(grizSoundcloudUrl);
+            done();
+        });
+
+        it('should throw an error if the url is incorrect', function (done) {
+            (function () {
+                hypemResolver.getByUrl("dfesfessfe");
+            }).should.throw();
+            done();
+        });
+
+        it('should also return a soundcloud url async', function (done) {
             hypemResolver.getByUrlAsync(grizHypemUrl, function (soundcloudUrl) {
                 soundcloudUrl.should.be.a('string');
                 soundcloudUrl.should.equal(grizSoundcloudUrl);
                 done();
             });
         })
-    });
+    })
 });
+

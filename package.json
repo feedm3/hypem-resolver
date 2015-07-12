@@ -2,6 +2,7 @@
   "name": "hypem-resolver",
   "version": "1.0.0",
   "description": "Get the songs URL from a hypem URL",
+  "homepage": "https://github.com/feedm3/hypem-resolver",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -17,6 +18,9 @@
   "repository": {
     "type": "git",
     "url": "git@github.com:feedm3/hypem-resolver.git"
+  },
+  "bugs": {
+    "url": "https://github.com/feedm3/hypem-resolver/issues"
   },
   "dependencies": {
     "q": "^1.4.1",

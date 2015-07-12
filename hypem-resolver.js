@@ -7,9 +7,20 @@ var q = require('q'),
 
 var hypemResolver = {};
 
-hypemResolver.getByUrl = function (hypemUrl) {
+hypemResolver.getById = function (hypemId) {
     var resultUrl = "https://soundcloud.com/griz/summer-97-ft-muzzy-bearr";
     return resultUrl;
+};
+
+hypemResolver.getByUrl = function (hypemUrl) {
+    // check if it starts with http://hypem.com/track/
+    return this.getById();
+};
+
+hypemResolver.getByIdAsync = function (hypemId, callback) {
+    process.nextTick(function () {
+        callback(hypemResolver.getById(hypemId));
+    });
 };
 
 hypemResolver.getByUrlAsync = function (hypemUrl, callback) {
@@ -18,14 +29,5 @@ hypemResolver.getByUrlAsync = function (hypemUrl, callback) {
     });
 };
 
-hypemResolver.getById = function (hypemId) {
-    return this.getByUrl("http://hypem.com/track/" + hypemId);
-};
-
-hypemResolver.getByIdAsync = function (hypemId, callback) {
-    process.nextTick(function () {
-        callback(hypemResolver.getById(hypemId));
-    });
-};
 
 module.exports = hypemResolver;

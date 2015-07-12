@@ -17,5 +17,8 @@
   "repository": {
     "type": "git",
     "url": "git@github.com:feedm3/hypem-resolver.git"
+  },
+  "engines": {
+    "node": "0.12.x"
   }
 }

@@ -15,8 +15,11 @@ hypemResolver.getById = function (hypemId) {
 
 hypemResolver.getByUrl = function (hypemUrl) {
     var trimmedUrl = _.trim(hypemUrl);
-    _.startsWith(trimmedUrl, "http://hypem.com/track/");
-    return this.getById();
+    if (_.startsWith(trimmedUrl, "http://hypem.com/track/")) {
+        return this.getById();
+    } else {
+        throw new Error("Hypem url is not correct. It should start with 'http://hypem.com/track/'");
+    }
 };
 
 hypemResolver.getByIdAsync = function (hypemId, callback) {

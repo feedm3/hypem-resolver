@@ -1,0 +1,17 @@
+{
+  "name": "hypem-resolver",
+  "version": "1.0.0",
+  "description": "Get the songs URL from a hypem URL",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "hypem",
+    "soundcloud",
+    "mp3",
+    "converter"
+  ],
+  "author": "Fabian Dietenberger <piano.fabian@t-online.de>",
+  "license": "MIT"
+}

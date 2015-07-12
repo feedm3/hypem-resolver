@@ -6,7 +6,7 @@
   "main": "hypem-resolver.js",
   "scripts": {
     "test": "mocha ./test --recursive",
-    "test-watch-changes": "mocha ./test --recursive --watch"
+    "test-watch": "mocha ./test --recursive --watch"
   },
   "keywords": [
     "hypem",

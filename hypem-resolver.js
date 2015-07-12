@@ -14,7 +14,8 @@ hypemResolver.getById = function (hypemId) {
 };
 
 hypemResolver.getByUrl = function (hypemUrl) {
-    // check if it starts with http://hypem.com/track/
+    var trimmedUrl = _.trim(hypemUrl);
+    _.startsWith(trimmedUrl, "http://hypem.com/track/");
     return this.getById();
 };
 

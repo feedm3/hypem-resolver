@@ -7,9 +7,13 @@ var q = require('q'),
 
 var hypemResolver = {};
 
-hypemResolver.getUrl = function (hypemUrl) {
+hypemResolver.getByUrl = function (hypemUrl) {
     var resultUrl = "";
     return resultUrl;
+};
+
+hypemResolver.getById = function (hypemId) {
+    return this.getByUrl("http://hypem.com/track/" + hypemId);
 };
 
 module.exports = hypemResolver;

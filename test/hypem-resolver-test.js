@@ -17,6 +17,13 @@ describe('If the song is hosted on soundcloud', function () {
                 done();
             });
         });
+
+        it('should not contain an error', function (done) {
+            hypemResolver.getById(grizHypemId, function (err, soundcloudUrl) {
+                should.not.exist(err);
+                done();
+            });
+        });
     });
 
     describe('and the hypem url is given', function () {

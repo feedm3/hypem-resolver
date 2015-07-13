@@ -11,7 +11,7 @@ describe('If the song is hosted on soundcloud', function () {
 
     describe('and the hypem id is given', function () {
         it('should return a soundcloud url', function (done) {
-            hypemResolver.getById(grizHypemId, function (soundcloudUrl) {
+            hypemResolver.getById(grizHypemId, function (err, soundcloudUrl) {
                 soundcloudUrl.should.be.a('string');
                 soundcloudUrl.should.equal(grizSoundcloudUrl);
                 done();
@@ -21,7 +21,7 @@ describe('If the song is hosted on soundcloud', function () {
 
     describe('and the hypem url is given', function () {
         it('should return a soundcloud url', function (done) {
-            hypemResolver.getByUrl(grizHypemUrl, function (soundcloudUrl) {
+            hypemResolver.getByUrl(grizHypemUrl, function (err, soundcloudUrl) {
                 soundcloudUrl.should.be.a('string');
                 soundcloudUrl.should.equal(grizSoundcloudUrl);
                 done();
@@ -29,18 +29,20 @@ describe('If the song is hosted on soundcloud', function () {
         });
 
         it('should ignore leading and ending whitspace', function (done) {
-            hypemResolver.getByUrl("    " + grizHypemUrl + "   ", function (soundcloudUrl) {
+            hypemResolver.getByUrl("    " + grizHypemUrl + "   ", function (err, soundcloudUrl) {
                 soundcloudUrl.should.be.a('string');
                 soundcloudUrl.should.equal(grizSoundcloudUrl);
                 done();
             });
         });
 
-        it('should throw an error if the url is incorrect', function (done) {
-            (function () {
-                hypemResolver.getByUrl("dfesfessfe");
-            }).should.throw();
-            done();
+        it('should give error if the url is incorrect', function (done) {
+            hypemResolver.getByUrl("dfesfessfe", function (err, soundcloudUrl) {
+                err.should.have.property('message');
+                err.message.should.be.a('string');
+                should.not.exist(soundcloudUrl);
+                done();
+            });
         });
     })
 });

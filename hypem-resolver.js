@@ -16,12 +16,11 @@ hypemResolver.getById = function (hypemId, callback) {
     var testResultUrl = "https://soundcloud.com/griz/summer-97-ft-muzzy-bearr";
 
     request(options, function (err, response, body) {
-        callback(testResultUrl);
-        //if (err) {
-        //    return testResultUrl;
-        //} else {
-        //    return testResultUrl;
-        //}
+        if (err || response.statusCode != 200) {
+            callback(err, testResultUrl);
+        } else {
+            callback(null, testResultUrl);
+        }
     });
 };
 
@@ -32,7 +31,7 @@ hypemResolver.getByUrl = function (hypemUrl, callback) {
         var hypemId = hypemPath.split("/")[0];
         this.getById(hypemId, callback)
     } else {
-        throw new Error("Hypem url is not correct. It should start with 'http://hypem.com/track/'");
+        callback(new Error("Hypem url is not correct. It should start with 'http://hypem.com/track/'", null));
     }
 };
 

@@ -7,9 +7,9 @@ var grizHypemId = "2c87x",
     grizHypemUrl = "http://hypem.com/track/2c87x",
     grizSoundcloudUrl = "https://soundcloud.com/griz/summer-97-ft-muzzy-bearr";
 
-describe('The song is hosted on soundcloud', function () {
+describe('If the song is hosted on soundcloud', function () {
 
-    describe('if the hypem id is given', function () {
+    describe('and the hypem id is given', function () {
 
         it('should return a soundcloud url', function (done) {
             var soundcloudUrl = hypemResolver.getById(grizHypemId);
@@ -27,7 +27,7 @@ describe('The song is hosted on soundcloud', function () {
         })
     });
 
-    describe('if the hypem url is given', function () {
+    describe('and the hypem url is given', function () {
         it('should return a soundcloud url', function (done) {
             var soundcloudUrl = hypemResolver.getByUrl(grizHypemUrl);
             soundcloudUrl.should.be.a('string');

@@ -10,36 +10,30 @@ var grizHypemId = "2c87x",
 describe('If the song is hosted on soundcloud', function () {
 
     describe('and the hypem id is given', function () {
-
         it('should return a soundcloud url', function (done) {
-            var soundcloudUrl = hypemResolver.getById(grizHypemId);
-            soundcloudUrl.should.be.a('string');
-            soundcloudUrl.should.equal(grizSoundcloudUrl);
-            done();
-        });
-
-        it('should also return a soundcloud url async', function (done) {
-            hypemResolver.getByIdAsync(grizHypemId, function (soundcloudUrl) {
+            hypemResolver.getById(grizHypemId, function (soundcloudUrl) {
                 soundcloudUrl.should.be.a('string');
                 soundcloudUrl.should.equal(grizSoundcloudUrl);
                 done();
             });
-        })
+        });
     });
 
     describe('and the hypem url is given', function () {
         it('should return a soundcloud url', function (done) {
-            var soundcloudUrl = hypemResolver.getByUrl(grizHypemUrl);
-            soundcloudUrl.should.be.a('string');
-            soundcloudUrl.should.equal(grizSoundcloudUrl);
-            done();
+            hypemResolver.getByUrl(grizHypemUrl, function (soundcloudUrl) {
+                soundcloudUrl.should.be.a('string');
+                soundcloudUrl.should.equal(grizSoundcloudUrl);
+                done();
+            });
         });
 
         it('should ignore leading and ending whitspace', function (done) {
-            var soundcloudUrl = hypemResolver.getByUrl("    " + grizHypemUrl + "   ");
-            soundcloudUrl.should.be.a('string');
-            soundcloudUrl.should.equal(grizSoundcloudUrl);
-            done();
+            hypemResolver.getByUrl("    " + grizHypemUrl + "   ", function (soundcloudUrl) {
+                soundcloudUrl.should.be.a('string');
+                soundcloudUrl.should.equal(grizSoundcloudUrl);
+                done();
+            });
         });
 
         it('should throw an error if the url is incorrect', function (done) {
@@ -48,14 +42,6 @@ describe('If the song is hosted on soundcloud', function () {
             }).should.throw();
             done();
         });
-
-        it('should also return a soundcloud url async', function (done) {
-            hypemResolver.getByUrlAsync(grizHypemUrl, function (soundcloudUrl) {
-                soundcloudUrl.should.be.a('string');
-                soundcloudUrl.should.equal(grizSoundcloudUrl);
-                done();
-            });
-        })
     })
 });
 

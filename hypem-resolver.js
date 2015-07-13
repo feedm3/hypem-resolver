@@ -8,31 +8,28 @@ var q = require('q'),
 
 var hypemResolver = {};
 
-hypemResolver.getById = function (hypemId) {
-    var resultUrl = "https://soundcloud.com/griz/summer-97-ft-muzzy-bearr";
-    return resultUrl;
+hypemResolver.getById = function (hypemId, callback) {
+    var url = "http://hypem.com/go/sc/" + hypemId;
+    var options = {method: "HEAD", followRedirect: false, url: url};
+    var testResultUrl = "https://soundcloud.com/griz/summer-97-ft-muzzy-bearr";
+
+    request(options, function (err, response, body) {
+        callback(testResultUrl);
+        //if (err) {
+        //    return testResultUrl;
+        //} else {
+        //    return testResultUrl;
+        //}
+    });
 };
 
-hypemResolver.getByUrl = function (hypemUrl) {
+hypemResolver.getByUrl = function (hypemUrl, callback) {
     var trimmedUrl = _.trim(hypemUrl);
     if (_.startsWith(trimmedUrl, "http://hypem.com/track/")) {
-        return this.getById();
+        this.getById(hypemUrl, callback)
     } else {
         throw new Error("Hypem url is not correct. It should start with 'http://hypem.com/track/'");
     }
 };
-
-hypemResolver.getByIdAsync = function (hypemId, callback) {
-    process.nextTick(function () {
-        callback(hypemResolver.getById(hypemId));
-    });
-};
-
-hypemResolver.getByUrlAsync = function (hypemUrl, callback) {
-    process.nextTick(function () {
-        callback(hypemResolver.getByUrl(hypemUrl));
-    });
-};
-
 
 module.exports = hypemResolver;

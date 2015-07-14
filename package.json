@@ -6,6 +6,8 @@
   "main": "hypem-resolver.js",
   "scripts": {
     "test": "mocha ./test --recursive",
+    "test-cover-win": "istanbul cover node_modules/mocha/bin/_mocha -- -R spec",
+    "test-cover-unix": "istanbul cover _mocha -- -R spec",
     "test-watch": "mocha ./test --recursive --watch"
   },
   "keywords": [
@@ -30,6 +32,7 @@
   },
   "devDependencies": {
     "chai": "^3.0.0",
+    "istanbul": "^0.3.17",
     "mocha": "^2.2.5"
   },
   "engines": {

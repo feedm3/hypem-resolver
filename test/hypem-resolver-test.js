@@ -5,7 +5,7 @@ var should = require('chai').should(),
 
 var grizHypemId = "2c87x",
     grizHypemUrl = "http://hypem.com/track/2c87x",
-    grizSoundcloudUrl = "https://soundcloud.com/griz/summer-97-ft-muzzy-bearr";
+    grizSoundcloudUrl = "http://soundcloud.com/griz/summer-97-ft-muzzy-bearr";
 
 describe('If the song is hosted on soundcloud', function () {
 
@@ -25,32 +25,20 @@ describe('If the song is hosted on soundcloud', function () {
             });
         });
     });
-
-    describe('and the hypem url is given', function () {
-        it('should return a soundcloud url', function (done) {
-            hypemResolver.getByUrl(grizHypemUrl, function (err, soundcloudUrl) {
-                soundcloudUrl.should.be.a('string');
-                soundcloudUrl.should.equal(grizSoundcloudUrl);
-                done();
-            });
-        });
-
-        it('should ignore leading and ending whitspace', function (done) {
-            hypemResolver.getByUrl("    " + grizHypemUrl + "   ", function (err, soundcloudUrl) {
-                soundcloudUrl.should.be.a('string');
-                soundcloudUrl.should.equal(grizSoundcloudUrl);
-                done();
-            });
-        });
-
-        it('should give error if the url is incorrect', function (done) {
-            hypemResolver.getByUrl("dfesfessfe", function (err, soundcloudUrl) {
-                err.should.have.property('message');
-                err.message.should.be.a('string');
-                should.not.exist(soundcloudUrl);
-                done();
-            });
-        });
-    })
 });
 
+describe('Converting the hypem url to the id', function () {
+    it('should return the id', function (done) {
+        var hypemId = hypemResolver.urlToId(grizHypemUrl);
+        hypemId.should.be.a('string');
+        hypemId.should.equal(grizHypemId);
+        done();
+    });
+
+    it('should ignore leading and ending whitspace', function (done) {
+        var hypemId = hypemResolver.urlToId("    " + grizHypemUrl + "    ");
+        hypemId.should.be.a('string');
+        hypemId.should.equal(grizHypemId);
+        done();
+    });
+});

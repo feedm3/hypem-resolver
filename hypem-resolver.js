@@ -13,28 +13,30 @@ var hypemResolver = {},
 hypemResolver.getById = function (hypemId, callback) {
     var url = hypemGoUrl + hypemId;
     var options = {method: "HEAD", followRedirect: false, url: url};
-    var testResultUrl = "https://soundcloud.com/griz/summer-97-ft-muzzy-bearr";
 
     request(options, function (err, response) {
         if (err || response.statusCode !== 302) {
             callback(err, null);
         } else {
-            callback(null, testResultUrl);
+            var soundcloudUrl = response.headers.location;
+            if (soundcloudUrl  == "http://soundcloud.com/not/found" || soundcloudUrl == "https://soundcloud.com/not/found") {
+                callback(null, new Error("Nothing found with the id: " + hypemId));
+            } else {
+                callback(null, soundcloudUrl);
+            }
         }
     });
 };
 
-hypemResolver.getByUrl = function (hypemUrl, callback) {
+hypemResolver.urlToId = function (hypemUrl) {
     var trimmedUrl = _.trim(hypemUrl);
     if (_.startsWith(trimmedUrl, hypemTrackUrl)) { // maybe use url
-        var hypemPath = hypemUrl.slice(hypemTrackUrl.length);
+        var hypemPath = trimmedUrl.slice(hypemTrackUrl.length);
         var hypemId = hypemPath.split("/")[0];
-        this.getById(hypemId, callback);
+        return hypemId;
     } else {
         callback(new Error("Hypem url is not correct. It should start with 'http://hypem.com/track/'", null));
     }
 };
-
-
 
 module.exports = hypemResolver;

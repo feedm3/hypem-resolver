@@ -8,11 +8,12 @@ var q = require('q'),
 
 var hypemResolver = {},
     hypemTrackUrl = "http://hypem.com/track/",
-    hypemGoUrl = "http://hypem.com/go/sc/";
+    hypemGoUrl = "http://hypem.com/go/sc/",
+    timeout = 5000;
 
 hypemResolver.getById = function (hypemId, callback) {
     var url = hypemGoUrl + hypemId;
-    var options = {method: "HEAD", followRedirect: false, url: url};
+    var options = {method: "HEAD", followRedirect: false, url: url, timeout: timeout};
 
     request(options, function (err, response) {
         if (err || response.statusCode !== 302) {
@@ -20,7 +21,7 @@ hypemResolver.getById = function (hypemId, callback) {
         } else {
             var soundcloudUrl = response.headers.location;
             if (soundcloudUrl  == "http://soundcloud.com/not/found" || soundcloudUrl == "https://soundcloud.com/not/found") {
-                callback(null, new Error("Nothing found with the id: " + hypemId));
+                callback(new Error("Nothing found with the id: " + hypemId));
             } else {
                 callback(null, soundcloudUrl);
             }

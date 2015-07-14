@@ -2,8 +2,9 @@
 
 "use strict";
 
-var q = require('q'),
-    request = require('request'),
+var request = require('request'),
+    url = require('url'),
+    q = require('q'),
     _ = require('lodash');
 
 var hypemResolver = {},

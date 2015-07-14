@@ -6,8 +6,7 @@
   "main": "hypem-resolver.js",
   "scripts": {
     "test": "istanbul cover _mocha -- -R spec",
-    "test-cover-win": "istanbul cover node_modules/mocha/bin/_mocha -- -R spec",
-    "test-cover-unix": "istanbul cover _mocha -- -R spec",
+    "test-win": "istanbul cover node_modules/mocha/bin/_mocha -- -R spec",
     "test-watch": "mocha ./test --recursive --watch"
   },
   "keywords": [

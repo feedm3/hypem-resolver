@@ -5,7 +5,6 @@
   "homepage": "https://github.com/feedm3/hypem-resolver",
   "main": "hypem-resolver.js",
   "scripts": {
-//    "test": "mocha ./test --recursive",
     "test": "istanbul cover _mocha -- -R spec",
     "test-cover-win": "istanbul cover node_modules/mocha/bin/_mocha -- -R spec",
     "test-cover-unix": "istanbul cover _mocha -- -R spec",

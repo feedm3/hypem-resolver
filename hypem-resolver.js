@@ -37,9 +37,8 @@ hypemResolver.urlToId = function (hypemUrl) {
         var hypemPath = trimmedUrl.slice(hypemTrackUrl.length);
         var hypemId = hypemPath.split("/")[0];
         return hypemId;
-    } else {
-        callback(new Error("Hypem url is not correct. It should start with 'http://hypem.com/track/'", null));
     }
+    return "";
 };
 
 function getSongFromExternalSource(hypemId, callback) {

@@ -23,7 +23,7 @@ hypemResolver.getById = function (hypemId, callback) {
             callback(err, null);
         } else {
             var songUrl = response.headers.location;
-            if (songUrl  == "http://soundcloud.com/not/found" || songUrl == "https://soundcloud.com/not/found") {
+            if (songUrl  === "http://soundcloud.com/not/found" || songUrl === "https://soundcloud.com/not/found") {
                 getSongFromExternalSource(hypemId, callback);
             } else {
                 callback(null, songUrl);

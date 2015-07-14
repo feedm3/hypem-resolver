@@ -55,7 +55,17 @@ describe('If the hypem id is given', function () {
                 done();
             })
         })
-    })
+    });
+
+    describe('and the song id does not exist', function () {
+        it('should contain an error', function (done) {
+            hypemResolver.getById("d", function (err) {
+                err.should.have.property('message');
+                err.message.should.be.a('string');
+                done();
+            })
+        });
+    });
 });
 
 describe('Converting the hypem url to the id', function () {
@@ -70,6 +80,13 @@ describe('Converting the hypem url to the id', function () {
         var hypemId = hypemResolver.urlToId("    " + hypemUrlStandard + "    ");
         hypemId.should.be.a('string');
         hypemId.should.equal(hypemIdStandard);
+        done();
+    });
+
+    it('should return an empty string if the url is wrong', function (done) {
+        var hypemId = hypemResolver.urlToId("this_id_does_not_exist");
+        hypemId.should.be.a('string');
+        hypemId.should.have.length(0);
         done();
     });
 });

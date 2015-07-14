@@ -15,8 +15,8 @@ hypemResolver.getById = function (hypemId, callback) {
     var options = {method: "HEAD", followRedirect: false, url: url};
     var testResultUrl = "https://soundcloud.com/griz/summer-97-ft-muzzy-bearr";
 
-    request(options, function (err, response, body) {
-        if (err || response.statusCode != 302) {
+    request(options, function (err, response) {
+        if (err || response.statusCode !== 302) {
             callback(err, null);
         } else {
             callback(null, testResultUrl);

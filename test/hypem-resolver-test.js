@@ -1,4 +1,9 @@
 // Copyright 2015 Fabian Dietenberger
+var blanket = require("blanket")({
+    /* options are passed as an argument object to the require statement */
+    "pattern": [""],
+    "data-cover-never": [ "node_modules", "test" ]
+});
 
 var should = require('chai').should(),
     hypemResolver = require('../hypem-resolver');

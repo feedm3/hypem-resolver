@@ -1,6 +1,6 @@
 //  Copyright 2015 Fabian Dietenberger
 
-'use-strict';
+"use strict";
 
 var q = require('q'),
     request = require('request'),
@@ -29,7 +29,7 @@ hypemResolver.getByUrl = function (hypemUrl, callback) {
     if (_.startsWith(trimmedUrl, hypemTrackUrl)) { // maybe use url
         var hypemPath = hypemUrl.slice(hypemTrackUrl.length);
         var hypemId = hypemPath.split("/")[0];
-        this.getById(hypemId, callback)
+        this.getById(hypemId, callback);
     } else {
         callback(new Error("Hypem url is not correct. It should start with 'http://hypem.com/track/'", null));
     }

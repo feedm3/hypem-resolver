@@ -6,9 +6,12 @@ var should = require('chai').should(),
 var hypemIdStandard = "2c87x",
     hypemUrlStandard = "http://hypem.com/track/2c87x",
     soundcloudUrlStandard = "http://soundcloud.com/griz/summer-97-ft-muzzy-bearr",
-    hypemIdNoSong = "2c96b";
+    hypemIdNoSong = "2c96b",
+    hypemIdMp3 = "2c2k1",
+    mp3 = "http://poponandon.com/wp-content/uploads/2015/06/01-Hurricane-Arty-Remix.mp3";
 
 describe('If the hypem id is given', function () {
+    this.timeout(10000);
 
     describe('and the song is hosted on soundcloud', function () {
         it('should contain a soundcloud url', function (done) {
@@ -24,6 +27,23 @@ describe('If the hypem id is given', function () {
                 should.not.exist(err);
                 done();
             });
+        });
+    });
+
+    describe('and the song is hosted as mp3', function () {
+        it('should contain a mp3 url', function (done) {
+            hypemResolver.getById(hypemIdMp3, function (err, mp3Url) {
+                mp3Url.should.be.a('string');
+                mp3Url.should.equal(mp3);
+                done();
+            });
+        });
+
+        it('should not contain an error', function (done) {
+            hypemResolver.getById(hypemIdMp3, function (err) {
+                should.not.exist(err);
+                done();
+            })
         });
     });
 

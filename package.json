@@ -5,7 +5,7 @@
   "homepage": "https://github.com/feedm3/hypem-resolver",
   "main": "hypem-resolver.js",
   "scripts": {
-    "test": "multi='dot=- html-cov=coverage.html' ./node_modules/mocha/bin/mocha /test -r blanket --reporter mocha-multi --no-colors",
+    "test": "mocha ./test --recursive",
     "test-watch": "mocha ./test --recursive --watch"
   },
   "keywords": [
@@ -23,30 +23,14 @@
   "bugs": {
     "url": "https://github.com/feedm3/hypem-resolver/issues"
   },
-  "config": {
-    "blanket": {
-      "pattern": [
-        "//\/[\\w-]+\\.js$/"
-      ],
-      "data-cover-never": [
-        "node_modules",
-        "test"
-      ],
-      "data-cover-reporter-options": {
-        "shortnames": true
-      }
-    }
-  },
   "dependencies": {
     "lodash": "^3.10.0",
     "q": "^1.4.1",
     "request": "^2.58.0"
   },
   "devDependencies": {
-    "blanket": "^1.1.7",
     "chai": "^3.0.0",
-    "mocha": "^2.2.5",
-    "mocha-multi": "^0.7.1"
+    "mocha": "^2.2.5"
   },
   "engines": {
     "node": "0.12.x"

@@ -2,7 +2,7 @@
 
 "use strict";
 
-var request = require('request'),
+var request = require('request-promise'),
     url = require('url'),
     q = require('q'),
     _ = require('lodash');
@@ -16,20 +16,27 @@ var hypemResolver = {},
 
 hypemResolver.getById = function (hypemId, callback) {
     var url = hypemGoUrl + hypemId;
-    var options = {method: "HEAD", followRedirect: false, url: url, timeout: timeout};
+    var options = {
+        method: 'HEAD',
+        followRedirect: false,
+        uri: url,
+        simple: false,
+        resolveWithFullResponse: true,
+        timeout: timeout
+    };
 
-    request(options, function (err, response) {
-        if (err || response.statusCode !== 302) {
-            callback(err, null);
-        } else {
+    request(options)
+        .then(function (response) {
             var songUrl = response.headers.location;
-            if (songUrl  === "http://soundcloud.com/not/found" || songUrl === "https://soundcloud.com/not/found") {
+            if (songUrl === "http://soundcloud.com/not/found" || songUrl === "https://soundcloud.com/not/found") {
                 getSongFromExternalSource(hypemId, callback);
             } else {
+                // TODO songUrl sometimes ends with /xyz -> remove this
                 callback(null, songUrl);
             }
-        }
-    });
+        }).catch(function (reason) {
+            callback(reason, null);
+        });
 };
 
 hypemResolver.urlToId = function (hypemUrl) {
@@ -58,7 +65,7 @@ function getSongFromExternalSource(hypemId, callback) {
                         key = JSON.parse(body[num].replace('</script>', '')).tracks[0].key;
                         var hypemUrl = hypemServerUrl + hypemId + "/" + key;
                         getMP3(hypemUrl, callback);
-                    } catch(e) {
+                    } catch (e) {
                         // if error happens here, first check the cookie value (maybe refresh)
                         // if this is not helping, manually check the body of the request for the key value
                     }

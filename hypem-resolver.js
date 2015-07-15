@@ -64,8 +64,7 @@ function getSongFromExternalSource(hypemId, callback) {
                     // fix if hypem changes that
                     try {
                         key = JSON.parse(body[num].replace('</script>', '')).tracks[0].key;
-                        var hypemUrl = "http://hypem.com/serve/source/" + hypemId + "/" + key;
-                        getMP3(hypemUrl, callback);
+                        getMP3(hypemId, key, callback);
                     } catch (e) {
                         // if error happens here, first check the cookie value (maybe refresh)
                         // if this is not helping, manually check the body of the request for the key value
@@ -78,10 +77,10 @@ function getSongFromExternalSource(hypemId, callback) {
         });
 }
 
-function getMP3(hypemLink, callback) {
+function getMP3(hypemId, hypemKey, callback) {
     var options = {
         method: "GET",
-        url: hypemLink,
+        url: "http://hypem.com/serve/source/" + hypemId + "/" + hypemKey,
         resolveWithFullResponse: true,
         headers: {"Cookie": cookie},
         timeout: timeout

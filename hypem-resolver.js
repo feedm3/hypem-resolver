@@ -49,13 +49,14 @@ function getSongFromExternalSource(hypemId, callback) {
     var options = {
         method: "GET",
         url: "http://hypem.com/track/" + hypemId,
+        resolveWithFullResponse: true,
         headers: {"Cookie": cookie},
         timeout: timeout
     };
 
-    request(options, function (error, response, body) {
-        if (!error && response.statusCode == 200) {
-            body = body.split('\n');
+    request(options)
+        .then(function (response) {
+            var body = response.body.split('\n');
             for (var num in body) {
                 var key;
                 if (String(body[num]).indexOf('key') != -1) {
@@ -71,35 +72,32 @@ function getSongFromExternalSource(hypemId, callback) {
                     }
                 }
             }
-        } else {
-            callback(new Error("Nothing found: " + options.url));
-        }
-    })
+        })
+        .catch(function (reason) {
+            callback(new Error("Nothing found: " + reason.options.url));
+        });
 }
 
 function getMP3(hypemLink, callback) {
     var options = {
         method: "GET",
         url: hypemLink,
+        resolveWithFullResponse: true,
         headers: {"Cookie": cookie},
         timeout: timeout
     };
 
-    request(options, function (error, response, body) {
-        if (!error) {
-            if (response.statusCode == 200) {
-                // the request got a json from hypem
-                // where the link to the mp3 file is saved
-                var jsonBody = JSON.parse(body);
-                var mp3Url = jsonBody.url;
-                callback(null, mp3Url);
-            } else {
-                callback(new Error("Nothing found: " + options.url));
-            }
-        } else {
-            callback(new Error("Nothing found: " + options.url));
-        }
-    })
+    request(options)
+        .then(function (response) {
+            // the request got a json from hypem
+            // where the link to the mp3 file is saved
+            var jsonBody = JSON.parse(response.body);
+            var mp3Url = jsonBody.url;
+            callback(null, mp3Url);
+        })
+        .catch(function (reason) {
+            callback(new Error("Nothing found: " + reason.options.url));
+        });
 }
 
 module.exports = hypemResolver;

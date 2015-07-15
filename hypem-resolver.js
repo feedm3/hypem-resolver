@@ -7,18 +7,25 @@ var request = require('request-promise'),
     _ = require('lodash');
 
 var hypemResolver = {},
-    hypemTrackUrl = "http://hypem.com/track/",
-    hypemGoUrl = "http://hypem.com/go/sc/",
-    hypemServerUrl = "http://hypem.com/serve/source/",
     timeout = 5000,
-    COOKIE = "__utma=1717032.393072307.1385723530.1413915594.1413918197.143; __utmz=1717032.1411373803.101.4.utmcsr=google|utmccn=(organic)|utmcmd=organic|utmctr=(not%20provided); __qca=P0-1192099176-1385723530317; hblid=fYaYEQ1S27S34nfX2t6JN4W3JOFC0CDj; olfsk=olfsk00024760656742828235; __gads=ID=f437c883a9450f76:T=1398362427:S=ALNI_MZpJh3KfFJKxg7lAgkIujTTrdzhYA; AUTH=03%3A406b2fe38a1ab80a2953869a475ff110%3A1412624464%3A1469266248%3A01-DE; __utmb=1717032.3.10.1413918197; __utmc=1717032; __utmt=1";
+    cookie = "AUTH=03%3A406b2fe38a1ab80a2953869a475ff110%3A1412624464%3A1469266248%3A01-DE";
+
+hypemResolver.urlToId = function (hypemUrl) {
+    var hypemTrackUrl = "http://hypem.com/track/";
+    var trimmedUrl = _.trim(hypemUrl);
+    if (_.startsWith(trimmedUrl, hypemTrackUrl)) { // maybe use url
+        var hypemPath = trimmedUrl.slice(hypemTrackUrl.length);
+        var hypemId = hypemPath.split("/")[0];
+        return hypemId;
+    }
+    return "";
+};
 
 hypemResolver.getById = function (hypemId, callback) {
-    var url = hypemGoUrl + hypemId;
     var options = {
         method: 'HEAD',
+        url: "http://hypem.com/go/sc/" + hypemId,
         followRedirect: false,
-        uri: url,
         simple: false,
         resolveWithFullResponse: true,
         timeout: timeout
@@ -38,19 +45,13 @@ hypemResolver.getById = function (hypemId, callback) {
         });
 };
 
-hypemResolver.urlToId = function (hypemUrl) {
-    var trimmedUrl = _.trim(hypemUrl);
-    if (_.startsWith(trimmedUrl, hypemTrackUrl)) { // maybe use url
-        var hypemPath = trimmedUrl.slice(hypemTrackUrl.length);
-        var hypemId = hypemPath.split("/")[0];
-        return hypemId;
-    }
-    return "";
-};
-
 function getSongFromExternalSource(hypemId, callback) {
-    var options = {method: "GET", url: "", headers: {"Cookie": COOKIE}, timeout: timeout};
-    options.url = hypemTrackUrl + hypemId;
+    var options = {
+        method: "GET",
+        url: "http://hypem.com/track/" + hypemId,
+        headers: {"Cookie": cookie},
+        timeout: timeout
+    };
 
     request(options, function (error, response, body) {
         if (!error && response.statusCode == 200) {
@@ -62,7 +63,7 @@ function getSongFromExternalSource(hypemId, callback) {
                     // fix if hypem changes that
                     try {
                         key = JSON.parse(body[num].replace('</script>', '')).tracks[0].key;
-                        var hypemUrl = hypemServerUrl + hypemId + "/" + key;
+                        var hypemUrl = "http://hypem.com/serve/source/" + hypemId + "/" + key;
                         getMP3(hypemUrl, callback);
                     } catch (e) {
                         // if error happens here, first check the cookie value (maybe refresh)
@@ -77,7 +78,13 @@ function getSongFromExternalSource(hypemId, callback) {
 }
 
 function getMP3(hypemLink, callback) {
-    var options = {method: "GET", url: hypemLink, headers: {"Cookie": COOKIE}, timeout: timeout};
+    var options = {
+        method: "GET",
+        url: hypemLink,
+        headers: {"Cookie": cookie},
+        timeout: timeout
+    };
+
     request(options, function (error, response, body) {
         if (!error) {
             if (response.statusCode == 200) {

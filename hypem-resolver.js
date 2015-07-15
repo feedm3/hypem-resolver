@@ -57,17 +57,19 @@ function getSongFromExternalSource(hypemId, callback) {
     request(options)
         .then(function (response) {
             var body = response.body.split('\n');
-            for (var num in body) {
-                var key;
-                if (String(body[num]).indexOf('key') != -1) {
-                    // first strike should be the correct one
-                    // fix if hypem changes that
-                    try {
-                        key = JSON.parse(body[num].replace('</script>', '')).tracks[0].key;
-                        getMP3(hypemId, key, callback);
-                    } catch (e) {
-                        // if error happens here, first check the cookie value (maybe refresh)
-                        // if this is not helping, manually check the body of the request for the key value
+            if (body) {
+                for (var num in body) {
+                    var key;
+                    if (String(body[num]).indexOf('key') !== -1) {
+                        // first strike should be the correct one
+                        // fix if hypem changes that
+                        try {
+                            key = JSON.parse(body[num].replace('</script>', '')).tracks[0].key;
+                            getMP3(hypemId, key, callback);
+                        } catch (e) {
+                            // if error happens here, first check the cookie value (maybe refresh)
+                            // if this is not helping, manually check the body of the request for the key value
+                        }
                     }
                 }
             }

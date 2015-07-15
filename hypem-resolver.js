@@ -56,23 +56,20 @@ function getSongFromExternalSource(hypemId, callback) {
 
     request(options)
         .then(function (response) {
-            var body = response.body.split('\n');
-            if (body) {
-                for (var num in body) {
-                    var key;
-                    if (String(body[num]).indexOf('key') !== -1) {
-                        // first strike should be the correct one
-                        // fix if hypem changes that
-                        try {
-                            key = JSON.parse(body[num].replace('</script>', '')).tracks[0].key;
-                            getMP3(hypemId, key, callback);
-                        } catch (e) {
-                            // if error happens here, first check the cookie value (maybe refresh)
-                            // if this is not helping, manually check the body of the request for the key value
-                        }
+            var bodyLines = response.body.split('\n');
+            _.forIn(bodyLines, function (bodyLine) {
+                if (bodyLine.indexOf('key') !== -1) {
+                    // first hit should be the correct one
+                    // fix if hypem changes that
+                    try {
+                        var key = JSON.parse(bodyLine.replace('</script>', '')).tracks[0].key;
+                        getMP3(hypemId, key, callback);
+                    } catch (e) {
+                        // if error happens here, first check the cookie value (maybe refresh)
+                        // if this is not helping, manually check the body of the request for the key value
                     }
                 }
-            }
+            });
         })
         .catch(function (reason) {
             callback(new Error("Nothing found: " + reason.options.url));

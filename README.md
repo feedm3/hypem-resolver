@@ -23,9 +23,18 @@ var hypemResolver = require('hypem-resolver')
 Convert the hypem id to the songs url
 
 ```js
-hypemResolver.getById(hypemIdStandard, function (error, url) {
+hypemResolver.getById('2c2k1', function (error, url) {
     if (!error) {
         console.log('The url is ' + url);
     }
 });
+```
+
+The hypem id is in the the url of a hypem track. 
+You get the track url when you click on the songs title on the hypem site.
+You can than convert/extract the url to the id.
+
+```js
+var hypemId = hypemResolver.urlToId('http://hypem.com/track/2c87x');
+console.log('The id is ' + hypemId);
 ```

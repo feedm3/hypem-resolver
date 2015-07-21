@@ -1,5 +1,6 @@
 # hypem-resolver
 
+[![npm version](https://badge.fury.io/js/hypem-resolver.svg)](http://badge.fury.io/js/hypem-resolver)
 [![Build Status](https://travis-ci.org/feedm3/hypem-resolver.svg)](https://travis-ci.org/feedm3/hypem-resolver)
 [![Test Coverage](https://codeclimate.com/github/feedm3/hypem-resolver/badges/coverage.svg)](https://codeclimate.com/github/feedm3/hypem-resolver/coverage)
 [![Code Climate](https://codeclimate.com/github/feedm3/hypem-resolver/badges/gpa.svg)](https://codeclimate.com/github/feedm3/hypem-resolver)

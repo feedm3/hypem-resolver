@@ -38,8 +38,14 @@ hypemResolver.getById = function (hypemId, callback) {
         if (songUrl === "http://soundcloud.com/not/found" || songUrl === "https://soundcloud.com/not/found") {
             getSongFromExternalSource(hypemId, callback);
         } else {
-            // TODO songUrl sometimes ends with /xyz -> remove this
-            callback(null, songUrl);
+            var parsedUrl = url.parse(songUrl);
+            var protocol = parsedUrl.protocol;
+            var host = parsedUrl.host;
+            var pathname = parsedUrl.pathname;
+            var splitHostname = pathname.split('/');
+
+            var soundcloudUrl = protocol + "//" + host + "/" + splitHostname[1] + "/" + splitHostname[2];
+            callback(null, soundcloudUrl);
         }
     })
 };

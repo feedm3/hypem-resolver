@@ -23,7 +23,8 @@ var hypemResolver = require('hypem-resolver')
 Convert the hypem id to the songs url
 
 ```js
-hypemResolver.getById('2c2k1', function (error, url) {
+hypemResolver.getById('2c87x', function (error, url) {
+    // url = http://soundcloud.com/griz/summer-97-ft-muzzy-bearr
     if (!error) {
         console.log('The url is ' + url);
     }
@@ -36,5 +37,5 @@ You can than convert/extract the url to the id.
 
 ```js
 var hypemId = hypemResolver.urlToId('http://hypem.com/track/2c87x');
-console.log('The id is ' + hypemId);
+console.log('The id is ' + hypemId); // hypemId = 2c87x
 ```

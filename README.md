@@ -24,10 +24,29 @@ var hypemResolver = require('hypem-resolver')
 Convert the hypem id to the songs url
 
 ```js
+// song is hosted on soundcloud (http://hypem.com/track/2c87x)
 hypemResolver.getById('2c87x', function (error, url) {
     // url = http://soundcloud.com/griz/summer-97-ft-muzzy-bearr
     if (!error) {
         console.log('The url is ' + url);
+    }
+});
+
+// song is hosted as mp3 somewhere else (http://hypem.com/track/2c2k1)
+hypemResolver.getById('2c2k1', function (error, url) {
+    // url = http://poponandon.com/wp-content/uploads/2015/06/01-Hurricane-Arty-Remix.mp3
+    if (!error) {
+        console.log('The url is ' + url);
+    }
+});
+
+// song is not hosted anywhere (http://hypem.com/track/2c96b)
+hypemResolver.getById('2c96b', function (error, url) {
+    // error!
+    if (!error) {
+        console.log('The url is ' + url);
+    } else {
+        console.log("Error " + error.message)
     }
 });
 ```

@@ -31,7 +31,7 @@ hypemResolver.getById = function (hypemId, callback) {
 
     request(options, function (error, response) {
         if (error || response.statusCode !== 302) {
-            callback(err, null);
+            callback(error, null);
             return;
         }
         var songUrl = response.headers.location;
@@ -47,7 +47,7 @@ hypemResolver.getById = function (hypemId, callback) {
             var soundcloudUrl = protocol + "//" + host + "/" + splitHostname[1] + "/" + splitHostname[2];
             callback(null, soundcloudUrl);
         }
-    })
+    });
 };
 
 function getSongFromExternalSource(hypemId, callback) {
@@ -59,7 +59,7 @@ function getSongFromExternalSource(hypemId, callback) {
     };
 
     request(options, function (error, response) {
-        if (!error && response.statusCode == 200) {
+        if (!error && response.statusCode === 200) {
             var bodyLines = response.body.split('\n');
             _.forIn(bodyLines, function (bodyLine) {
                 if (bodyLine.indexOf('key') !== -1) {
@@ -68,7 +68,7 @@ function getSongFromExternalSource(hypemId, callback) {
                     try {
                         var key = JSON.parse(bodyLine.replace('</script>', '')).tracks[0].key;
                         getMP3(hypemId, key, callback);
-                    } catch (e) {
+                    } catch (error) {
                         // if error happens here, first check the cookie value (maybe refresh)
                         // if this is not helping, manually check the body of the request for the key value
                     }
@@ -77,7 +77,7 @@ function getSongFromExternalSource(hypemId, callback) {
         } else {
             callback(new Error("Nothing found: " + options.url), null);
         }
-    })
+    });
 }
 
 function getMP3(hypemId, hypemKey, callback) {
@@ -89,7 +89,7 @@ function getMP3(hypemId, hypemKey, callback) {
     };
 
     request(options, function (error, response) {
-        if (!error || response.statusCode != 200) {
+        if (!error || response.statusCode !== 200) {
             try {
                 // the request got a json from hypem
                 // where the link to the mp3 file is saved
@@ -97,7 +97,7 @@ function getMP3(hypemId, hypemKey, callback) {
                 var mp3Url = jsonBody.url;
                 callback(null, mp3Url);
             } catch (error) {
-                callback(new Error("Nothing found: " + options.url), null);
+                callback(error, null);
             }
 
         } else {

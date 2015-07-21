@@ -14,8 +14,9 @@ hypemResolver.urlToId = function (hypemUrl) {
     var hypemTrackUrl = "http://hypem.com/track/";
     var trimmedUrl = _.trim(hypemUrl);
     if (_.startsWith(trimmedUrl, hypemTrackUrl)) { // maybe use url
-        var hypemPath = trimmedUrl.slice(hypemTrackUrl.length);
-        var hypemId = hypemPath.split("/")[0];
+        var parsedUrl = url.parse(hypemUrl);
+        var pathname = parsedUrl.pathname; // '/trach/31jfi/...'
+        var hypemId = pathname.split("/")[2];
         return hypemId;
     }
     return "";

@@ -89,7 +89,7 @@ function getMP3(hypemId, hypemKey, callback) {
     };
 
     request(options, function (error, response) {
-        if (!error || response.statusCode !== 200) {
+        if (!error && response.statusCode === 200) {
             try {
                 // the request got a json from hypem
                 // where the link to the mp3 file is saved

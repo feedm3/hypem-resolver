@@ -9,15 +9,12 @@ Package for Node to resolve the hypem URL to its soundcloud/mp3 link.
 
 ## Usage
 Install via npm
-
 `npm install hypem-resolver`
 
 Require the package
-
 `var hypemResolver = require('hypem-resolver')`
 
 Convert the hypem id to the songs url
-
 `hypemResolver.getById(hypemIdStandard, function (error, url) {
     if (!error) {
         console.log('The url is ' + url);

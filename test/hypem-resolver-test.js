@@ -1,7 +1,6 @@
 // Copyright 2015 Fabian Dietenberger
 
 var should = require('chai').should(),
-    expect = require('chai').expect(),
     hypemResolver = require('../hypem-resolver');
 
 var hypemIdStandard = "2c87x",

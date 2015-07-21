@@ -1,6 +1,6 @@
 {
   "name": "hypem-resolver",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "Resolve the hypem URL to its soundcloud/mp3 link",
   "homepage": "https://github.com/feedm3/hypem-resolver",
   "main": "hypem-resolver.js",

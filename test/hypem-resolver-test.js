@@ -16,18 +16,9 @@ describe('If the hypem id is given', function () {
     describe('and the song is hosted on soundcloud', function () {
         it('should contain a soundcloud url', function (done) {
             hypemResolver.getById(hypemIdStandard, function (err, soundcloudUrl) {
-                var errorCatched = false;
-                try {
-                    soundcloudUrl.should.be.a('string');
-                    soundcloudUrl.should.equal(soundcloudUrlStandard);
-                } catch(err) {
-                    errorCatched = true;
-                    done(err);
-                } finally {
-                    if (!errorCatched) {
-                        done();
-                    }
-                }
+                soundcloudUrl.should.be.a('string');
+                soundcloudUrl.should.equal(soundcloudUrlStandard);
+                done();
             });
         });
 

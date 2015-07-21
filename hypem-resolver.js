@@ -2,7 +2,7 @@
 
 "use strict";
 
-var request = require('request-promise'),
+var request = require('request'),
     url = require('url'),
     _ = require('lodash');
 
@@ -26,36 +26,34 @@ hypemResolver.getById = function (hypemId, callback) {
         method: 'HEAD',
         url: "http://hypem.com/go/sc/" + hypemId,
         followRedirect: false,
-        simple: false,
-        resolveWithFullResponse: true,
         timeout: timeout
     };
 
-    request(options)
-        .then(function (response) {
-            var songUrl = response.headers.location;
-            if (songUrl === "http://soundcloud.com/not/found" || songUrl === "https://soundcloud.com/not/found") {
-                getSongFromExternalSource(hypemId, callback);
-            } else {
-                // TODO songUrl sometimes ends with /xyz -> remove this
-                callback(null, songUrl);
-            }
-        }).catch(function (reason) {
-            callback(reason, null);
-        });
+    request(options, function (error, response) {
+        if (error || response.statusCode !== 302) {
+            callback(err, null);
+            return;
+        }
+        var songUrl = response.headers.location;
+        if (songUrl === "http://soundcloud.com/not/found" || songUrl === "https://soundcloud.com/not/found") {
+            getSongFromExternalSource(hypemId, callback);
+        } else {
+            // TODO songUrl sometimes ends with /xyz -> remove this
+            callback(null, songUrl);
+        }
+    })
 };
 
 function getSongFromExternalSource(hypemId, callback) {
     var options = {
         method: "GET",
         url: "http://hypem.com/track/" + hypemId,
-        resolveWithFullResponse: true,
         headers: {"Cookie": cookie},
         timeout: timeout
     };
 
-    request(options)
-        .then(function (response) {
+    request(options, function (error, response) {
+        if (!error && response.statusCode == 200) {
             var bodyLines = response.body.split('\n');
             _.forIn(bodyLines, function (bodyLine) {
                 if (bodyLine.indexOf('key') !== -1) {
@@ -70,32 +68,37 @@ function getSongFromExternalSource(hypemId, callback) {
                     }
                 }
             });
-        })
-        .catch(function (reason) {
-            callback(new Error("Nothing found: " + reason.options.url));
-        });
+        } else {
+            callback(new Error("Nothing found: " + options.url), null);
+        }
+    })
 }
 
 function getMP3(hypemId, hypemKey, callback) {
     var options = {
         method: "GET",
         url: "http://hypem.com/serve/source/" + hypemId + "/" + hypemKey,
-        resolveWithFullResponse: true,
         headers: {"Cookie": cookie},
         timeout: timeout
     };
 
-    request(options)
-        .then(function (response) {
-            // the request got a json from hypem
-            // where the link to the mp3 file is saved
-            var jsonBody = JSON.parse(response.body);
-            var mp3Url = jsonBody.url;
-            callback(null, mp3Url);
-        })
-        .catch(function (reason) {
-            callback(new Error("Nothing found: " + reason.options.url));
-        });
+    request(options, function (error, response) {
+        if (!error || response.statusCode != 200) {
+            try {
+                // the request got a json from hypem
+                // where the link to the mp3 file is saved
+                var jsonBody = JSON.parse(response.body);
+                var mp3Url = jsonBody.url;
+                callback(null, mp3Url);
+            } catch (error) {
+                callback(new Error("Nothing found: " + options.url), null);
+            }
+
+        } else {
+            callback(new Error("Nothing found: " + options.url), null);
+        }
+    });
 }
+
 
 module.exports = hypemResolver;

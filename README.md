@@ -15,13 +15,17 @@ Install via npm
 
 Require the package
 
-`var hypemResolver = require('hypem-resolver')`
+```js
+var hypemResolver = require('hypem-resolver')
+```
 
 
 Convert the hypem id to the songs url
 
-`hypemResolver.getById(hypemIdStandard, function (error, url) {
+```js
+hypemResolver.getById(hypemIdStandard, function (error, url) {
     if (!error) {
         console.log('The url is ' + url);
     }
-});`
+});
+```

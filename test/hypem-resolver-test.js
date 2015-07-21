@@ -113,10 +113,21 @@ describe('Converting the hypem url to the id', function () {
         done();
     });
 
-    it('should return an empty string if the url is wrong', function (done) {
-        var hypemId = hypemResolver.urlToId("this_id_does_not_exist");
-        hypemId.should.be.a('string');
-        hypemId.should.have.length(0);
-        done();
+    describe('but the url is longer than usual', function () {
+        it('should return the correct id', function (done) {
+            var hypemId = hypemResolver.urlToId(hypemUrlStandard + "/dhtzfh/hdgrd");
+            hypemId.should.be.a('string');
+            hypemId.should.equal(hypemIdStandard);
+            done();
+        });
+    });
+
+    describe('but the url is not a valid url', function () {
+        it('should return an empty string', function (done) {
+            var hypemId = hypemResolver.urlToId("this_id_does_not_exist");
+            hypemId.should.be.a('string');
+            hypemId.should.have.length(0);
+            done();
+        });
     });
 });

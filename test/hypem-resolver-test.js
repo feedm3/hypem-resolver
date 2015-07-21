@@ -57,7 +57,7 @@ describe('If the hypem id is given', function () {
         })
     });
 
-    describe('and the song id does not exist', function () {
+    describe('but the id does not exist', function () {
         it('should contain an error', function (done) {
             hypemResolver.getById("d", function (err) {
                 err.should.have.property('message');
@@ -65,6 +65,36 @@ describe('If the hypem id is given', function () {
                 done();
             })
         });
+    });
+
+    describe('but the id is empty', function () {
+        it('should contain an error', function (done) {
+            hypemResolver.getById(null, function (err) {
+                err.should.have.property('message');
+                err.message.should.be.a('string');
+                done();
+            })
+        })
+    });
+
+    describe('but the id is a url path', function () {
+        it('should contain an error', function (done) {
+            hypemResolver.getById("oh/my/gosh", function (err) {
+                err.should.have.property('message');
+                err.message.should.be.a('string');
+                done();
+            })
+        })
+    });
+
+    describe('but the id is not an id', function () {
+        it('should contain an error', function (done) {
+            hypemResolver.getById(":P #~d^1234 d", function (err) {
+                err.should.have.property('message');
+                err.message.should.be.a('string');
+                done();
+            })
+        })
     });
 });
 

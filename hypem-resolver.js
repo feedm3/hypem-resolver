@@ -43,17 +43,13 @@ hypemResolver.getById = function (hypemId, callback) {
         if (songUrl === "http://soundcloud.com/not/found" || songUrl === "https://soundcloud.com/not/found") {
             getSongFromExternalSource(hypemId, callback);
         } else {
-            var parsedUrl = url.parse(songUrl);
-            var protocol = parsedUrl.protocol;
-            var host = parsedUrl.host;
-            var pathname = parsedUrl.pathname;
-            var splitHostname = pathname.split('/');
-
-            var soundcloudUrl = protocol + "//" + host + "/" + splitHostname[1] + "/" + splitHostname[2];
+            var soundcloudUrl = getNormalizedSoundcloudUrl(songUrl);
             callback(null, soundcloudUrl);
         }
     });
 };
+
+module.exports = hypemResolver;
 
 function getSongFromExternalSource(hypemId, callback) {
     var options = {
@@ -111,5 +107,12 @@ function getMP3(hypemId, hypemKey, callback) {
     });
 }
 
-
-module.exports = hypemResolver;
+function getNormalizedSoundcloudUrl(soundcloudUrl) {
+    var parsedUrl = url.parse(soundcloudUrl);
+    var protocol = parsedUrl.protocol;
+    var host = parsedUrl.host;
+    var pathname = parsedUrl.pathname;
+    var splitHostname = pathname.split('/');
+    var normalizedUrl = protocol + "//" + host + "/" + splitHostname[1] + "/" + splitHostname[2];
+    return normalizedUrl;
+}

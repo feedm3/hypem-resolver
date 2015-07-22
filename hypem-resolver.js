@@ -35,11 +35,11 @@ function HypemResolver() {
     }
 
     /**
-     * Get the soundcloud or mp3 url from a track's id.
+     * Get the soundcloud or mp3 url from a song's id.
      *
-     * @param hypemId {string} the id of the track
+     * @param hypemId {string} the id of the song
      * @param {Function}[callback] callback function
-     * @param {Error} callback.err null if no error occured
+     * @param {Error} callback.err null if no error occurred
      * @param {string} callback.url the soundcloud or mp3 url
      */
     function getById(hypemId, callback) {
@@ -71,9 +71,14 @@ function HypemResolver() {
     };
 
     /**
+     * Get the mp3 url of the song's id. This is only
+     * necessary if the song is not hosted on soundcloud.
+     *
      * @private
-     * @param hypemId
-     * @param callback
+     * @param {string} hypemId the id of the song
+     * @param {Function}[callback] callback function
+     * @param {Error} callback.err null if no error occurred
+     * @param {string} callback.url the mp3 url
      */
     function getSongFromExternalSource(hypemId, callback) {
         var options = {
@@ -106,10 +111,14 @@ function HypemResolver() {
     }
 
     /**
+     * Get the mp3 url of the song's id with a given key.
+     *
      * @private
-     * @param hypemId
-     * @param hypemKey
-     * @param callback
+     * @param {string} hypemId the id of the song
+     * @param {string} hypemKey the key to make the request succeed
+     * @param {Function}[callback] callback function
+     * @param {Error} callback.err null if no error occurred
+     * @param {string} callback.url the mp3 url
      */
     function getMP3(hypemId, hypemKey, callback) {
         var options = {
@@ -138,9 +147,12 @@ function HypemResolver() {
     }
 
     /**
+     * Get the normalized soundcloud url. This means that every
+     * parameter or path which is not necessary gets removed.
+     *
      * @private
-     * @param soundcloudUrl
-     * @returns {string}
+     * @param {string} soundcloudUrl the url to normalize
+     * @returns {string} the normalized soundcloud url
      */
     function getNormalizedSoundcloudUrl(soundcloudUrl) {
         var parsedUrl = url.parse(soundcloudUrl);

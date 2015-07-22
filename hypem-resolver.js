@@ -104,8 +104,8 @@ function HypemResolver() {
                             var key = JSON.parse(bodyLine.replace('</script>', '')).tracks[0].key;
                             callback(null, key);
                         } catch (error) {
-                            // if error happens here, first check the cookie value (maybe refresh)
-                            // if this is not helping, manually check the body of the request for the key value
+                            // if an error happen here do nothing and parse
+                            // the rest of the document
                         }
                     }
                 });

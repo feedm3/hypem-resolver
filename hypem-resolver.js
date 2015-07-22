@@ -6,14 +6,18 @@ var request = require('request'),
     url = require('url'),
     _ = require('lodash');
 
-var hypemResolver = {},
-    timeout = 5000,
-    cookie = "AUTH=03%3A406b2fe38a1ab80a2953869a475ff110%3A1412624464%3A1469266248%3A01-DE";
+var hypemResolver = {};
+
+/* Constants */
+var FIVE_SECONDS_IN_MILLIS = 5000,
+    COOKIE = "AUTH=03%3A406b2fe38a1ab80a2953869a475ff110%3A1412624464%3A1469266248%3A01-DE",
+    HYPEM_TRACK_URL = "http://hypem.com/track/",
+    HYPEM_GO_URL = "http://hypem.com/go/sc/",
+    HYPEM_SERVE_URL = "http://hypem.com/serve/source/";
 
 hypemResolver.urlToId = function (hypemUrl) {
-    var hypemTrackUrl = "http://hypem.com/track/";
     var trimmedUrl = _.trim(hypemUrl);
-    if (_.startsWith(trimmedUrl, hypemTrackUrl)) { // maybe use url
+    if (_.startsWith(trimmedUrl, HYPEM_TRACK_URL)) { // maybe use url
         var parsedUrl = url.parse(hypemUrl);
         var pathname = parsedUrl.pathname; // '/trach/31jfi/...'
         var hypemId = pathname.split("/")[2];
@@ -25,9 +29,9 @@ hypemResolver.urlToId = function (hypemUrl) {
 hypemResolver.getById = function (hypemId, callback) {
     var options = {
         method: 'HEAD',
-        url: "http://hypem.com/go/sc/" + hypemId,
+        url: HYPEM_GO_URL + hypemId,
         followRedirect: false,
-        timeout: timeout
+        timeout: FIVE_SECONDS_IN_MILLIS
     };
 
     request(options, function (error, response) {
@@ -54,9 +58,9 @@ hypemResolver.getById = function (hypemId, callback) {
 function getSongFromExternalSource(hypemId, callback) {
     var options = {
         method: "GET",
-        url: "http://hypem.com/track/" + hypemId,
-        headers: {"Cookie": cookie},
-        timeout: timeout
+        url: HYPEM_TRACK_URL + hypemId,
+        headers: {"Cookie": COOKIE},
+        timeout: FIVE_SECONDS_IN_MILLIS
     };
 
     request(options, function (error, response) {
@@ -84,9 +88,9 @@ function getSongFromExternalSource(hypemId, callback) {
 function getMP3(hypemId, hypemKey, callback) {
     var options = {
         method: "GET",
-        url: "http://hypem.com/serve/source/" + hypemId + "/" + hypemKey,
-        headers: {"Cookie": cookie},
-        timeout: timeout
+        url: HYPEM_SERVE_URL + hypemId + "/" + hypemKey,
+        headers: {"Cookie": COOKIE},
+        timeout: FIVE_SECONDS_IN_MILLIS
     };
 
     request(options, function (error, response) {

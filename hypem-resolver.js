@@ -10,13 +10,19 @@ function HypemResolver() {
         url = require('url'),
         _ = require('lodash');
 
-    /* Constants */
+    /** Used for the requests */
     var FIVE_SECONDS_IN_MILLIS = 5000,
         COOKIE = "AUTH=03%3A406b2fe38a1ab80a2953869a475ff110%3A1412624464%3A1469266248%3A01-DE",
         HYPEM_TRACK_URL = "http://hypem.com/track/",
         HYPEM_GO_URL = "http://hypem.com/go/sc/",
         HYPEM_SERVE_URL = "http://hypem.com/serve/source/";
 
+    /**
+     * Extract the hypem id from a song's url.
+     *
+     * @param {string} hypemUrl the url to extract the id
+     * @returns {string} the id or "" if no id was found
+     */
     function urlToId(hypemUrl) {
         var trimmedUrl = _.trim(hypemUrl);
         if (_.startsWith(trimmedUrl, HYPEM_TRACK_URL)) {
@@ -28,6 +34,14 @@ function HypemResolver() {
         return "";
     }
 
+    /**
+     * Get the soundcloud or mp3 url from a track's id.
+     *
+     * @param hypemId {string} the id of the track
+     * @param {Function}[callback] callback function
+     * @param {Error} callback.err null if no error occured
+     * @param {string} callback.url the soundcloud or mp3 url
+     */
     function getById(hypemId, callback) {
         var options = {
             method: 'HEAD',
@@ -56,6 +70,11 @@ function HypemResolver() {
         getById: getById
     };
 
+    /**
+     * @private
+     * @param hypemId
+     * @param callback
+     */
     function getSongFromExternalSource(hypemId, callback) {
         var options = {
             method: "GET",
@@ -86,6 +105,12 @@ function HypemResolver() {
         });
     }
 
+    /**
+     * @private
+     * @param hypemId
+     * @param hypemKey
+     * @param callback
+     */
     function getMP3(hypemId, hypemKey, callback) {
         var options = {
             method: "GET",
@@ -112,6 +137,11 @@ function HypemResolver() {
         });
     }
 
+    /**
+     * @private
+     * @param soundcloudUrl
+     * @returns {string}
+     */
     function getNormalizedSoundcloudUrl(soundcloudUrl) {
         var parsedUrl = url.parse(soundcloudUrl);
         var protocol = parsedUrl.protocol;

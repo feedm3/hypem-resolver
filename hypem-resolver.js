@@ -17,7 +17,7 @@ var FIVE_SECONDS_IN_MILLIS = 5000,
 
 hypemResolver.urlToId = function (hypemUrl) {
     var trimmedUrl = _.trim(hypemUrl);
-    if (_.startsWith(trimmedUrl, HYPEM_TRACK_URL)) { // maybe use url
+    if (_.startsWith(trimmedUrl, HYPEM_TRACK_URL)) {
         var parsedUrl = url.parse(hypemUrl);
         var pathname = parsedUrl.pathname; // '/trach/31jfi/...'
         var hypemId = pathname.split("/")[2];

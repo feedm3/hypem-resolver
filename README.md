@@ -59,11 +59,12 @@ console.log('The id is ' + hypemId); // hypemId = 2c87x
 ```
 
 ## Contribute
-If you want to contribute make sure all tests pass. There are 3 possible commands to
-run the tests. All will execute the same tests.
+If you want to contribute make sure all tests pass and the test coverage is always over 90%. 
 
-The basic command will run all tests and also generate a cover report (under '/coverage')
-.
+There are 3 possible commands to run the tests. All will execute the same tests.
+
+The basic command will run all tests and also generate a cover report (under '/coverage').
+
 `npm test`
 
 To run the test on a windows machine use the following command. It does the same thing as the

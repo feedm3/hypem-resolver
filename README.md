@@ -57,3 +57,21 @@ There's also a little helper method to extract the hypem id from the song's url.
 var hypemId = hypemResolver.urlToId('http://hypem.com/track/2c87x');
 console.log('The id is ' + hypemId); // hypemId = 2c87x
 ```
+
+## Contribute
+If you want to contribute make sure all tests pass. There are 3 possible commands to
+run the tests. All will execute the same tests.
+
+The basic command will run all tests and also generate a cover report (under '/coverage')
+.
+`npm test`
+
+To run the test on a windows machine use the following command. It does the same thing as the
+basic command but on windows.
+
+`npm run test-win`
+
+You can also run the test with a watcher. This works on all platforms and does not generate
+a cover report.
+
+`npm run test-watch`

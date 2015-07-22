@@ -59,7 +59,7 @@ function HypemResolver() {
             if (songUrl === "http://soundcloud.com/not/found" || songUrl === "https://soundcloud.com/not/found") {
                 getHypemKey(hypemId, function (error, hypemKey) {
                     if (error) {
-
+                        callback(error, null);
                     }
                     getMP3(hypemId, hypemKey, callback);
                 });
@@ -76,8 +76,9 @@ function HypemResolver() {
     };
 
     /**
-     * Get the mp3 url of the song's id. This is only
-     * necessary if the song is not hosted on soundcloud.
+     * Get the key for hypem. The key is necessary to request
+     * the hypem serve url which gives us the mp3 url. We dont
+     * need a key if the song is hosted on soundcloud.
      *
      * @private
      * @param {string} hypemId the id of the song

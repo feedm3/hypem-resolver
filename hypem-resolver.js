@@ -60,6 +60,7 @@ function HypemResolver() {
                 getHypemKey(hypemId, function (error, hypemKey) {
                     if (error) {
                         callback(error, null);
+                        return;
                     }
                     getMP3(hypemId, hypemKey, callback);
                 });

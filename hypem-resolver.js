@@ -57,7 +57,12 @@ function HypemResolver() {
             }
             var songUrl = response.headers.location;
             if (songUrl === "http://soundcloud.com/not/found" || songUrl === "https://soundcloud.com/not/found") {
-                getSongFromExternalSource(hypemId, callback);
+                getHypemKey(hypemId, function (error, hypemKey) {
+                    if (error) {
+
+                    }
+                    getMP3(hypemId, hypemKey, callback);
+                });
             } else {
                 var soundcloudUrl = getNormalizedSoundcloudUrl(songUrl);
                 callback(null, soundcloudUrl);
@@ -78,9 +83,9 @@ function HypemResolver() {
      * @param {string} hypemId the id of the song
      * @param {Function}[callback] callback function
      * @param {Error} callback.err null if no error occurred
-     * @param {string} callback.url the mp3 url
+     * @param {string} callback.url the key to request a hypem song url
      */
-    function getSongFromExternalSource(hypemId, callback) {
+    function getHypemKey(hypemId, callback) {
         var options = {
             method: "GET",
             url: HYPEM_TRACK_URL + hypemId,
@@ -97,7 +102,7 @@ function HypemResolver() {
                         // fix if hypem changes that
                         try {
                             var key = JSON.parse(bodyLine.replace('</script>', '')).tracks[0].key;
-                            getMP3(hypemId, key, callback);
+                            callback(null, key);
                         } catch (error) {
                             // if error happens here, first check the cookie value (maybe refresh)
                             // if this is not helping, manually check the body of the request for the key value

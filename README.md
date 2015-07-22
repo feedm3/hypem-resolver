@@ -51,9 +51,7 @@ hypemResolver.getById('2c96b', function (error, url) {
 });
 ```
 
-The hypem id is in the the url of a hypem track. 
-You get the track url when you click on the songs title on the hypem site.
-You can than convert/extract the url to the id.
+There's also a little helper method to extract the hypem id from the track's url.
 
 ```js
 var hypemId = hypemResolver.urlToId('http://hypem.com/track/2c87x');

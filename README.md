@@ -51,7 +51,7 @@ hypemResolver.getById('2c96b', function (error, url) {
 });
 ```
 
-There's also a little helper method to extract the hypem id from the track's url.
+There's also a little helper method to extract the hypem id from the song's url.
 
 ```js
 var hypemId = hypemResolver.urlToId('http://hypem.com/track/2c87x');

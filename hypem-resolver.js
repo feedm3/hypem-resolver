@@ -1,4 +1,7 @@
-//  Copyright 2015 Fabian Dietenberger
+/**
+ * Copyright 2015 Fabian Dietenberger
+ * Available under MIT license
+ */
 
 "use strict";
 

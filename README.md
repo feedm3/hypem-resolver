@@ -63,16 +63,16 @@ If you want to contribute make sure all tests pass and the test coverage is alwa
 
 There are 3 possible commands to run the tests. All will execute the same tests.
 
-The basic command will run all tests and also generate a cover report (under '/coverage').
+* The basic command will run all tests and also generate a cover report (under '/coverage').
 
-`npm test`
+    `npm test`
 
-To run the test on a windows machine use the following command. It does the same thing as the
+* To run the test on a windows machine use the following command. It does the same thing as the
 basic command but on windows.
 
-`npm run test-win`
+    `npm run test-win`
 
-You can also run the test with a watcher. This works on all platforms and does not generate
+* You can also run the test with a watcher. This works on all platforms and does not generate
 a cover report.
 
-`npm run test-watch`
+    `npm run test-watch`

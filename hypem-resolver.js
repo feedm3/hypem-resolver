@@ -56,7 +56,10 @@ function HypemResolver() {
                 return;
             }
             var songUrl = response.headers.location;
-            if (songUrl === "http://soundcloud.com/not/found" || songUrl === "https://soundcloud.com/not/found") {
+            if (isSoundcloudUrl(songUrl)) {
+                var soundcloudUrl = getNormalizedSoundcloudUrl(songUrl);
+                callback(null, soundcloudUrl);
+            } else {
                 getHypemKey(hypemId, function (error, hypemKey) {
                     if (error) {
                         callback(error, null);
@@ -64,9 +67,6 @@ function HypemResolver() {
                     }
                     getMP3(hypemId, hypemKey, callback);
                 });
-            } else {
-                var soundcloudUrl = getNormalizedSoundcloudUrl(songUrl);
-                callback(null, soundcloudUrl);
             }
         });
     }
@@ -75,7 +75,6 @@ function HypemResolver() {
         urlToId: urlToId,
         getById: getById
     };
-
     /**
      * Get the key for hypem. The key is necessary to request
      * the hypem serve url which gives us the mp3 url. We dont
@@ -151,6 +150,18 @@ function HypemResolver() {
                 callback(new Error("Nothing found: " + options.url), null);
             }
         });
+    }
+
+    /**
+     * Check if the url is a soundlcoud url. The test is very simple because
+     * hypem either returns the complete url or a 'not found' url.
+     *
+     * @param {string} songUrl the url to check
+     * @returns {boolean} true if its a soundcloud url
+     */
+    function isSoundcloudUrl(songUrl) {
+        return songUrl !== "http://soundcloud.com/not/found" &&
+            songUrl !== "https://soundcloud.com/not/found"
     }
 
     /**

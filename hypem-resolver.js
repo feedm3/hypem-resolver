@@ -65,7 +65,7 @@ function HypemResolver() {
                         callback(error, null);
                         return;
                     }
-                    getMP3(hypemId, hypemKey, callback);
+                    getMp3Url(hypemId, hypemKey, callback);
                 });
             }
         });
@@ -126,7 +126,7 @@ function HypemResolver() {
      * @param {Error} callback.err null if no error occurred
      * @param {string} callback.url the mp3 url
      */
-    function getMP3(hypemId, hypemKey, callback) {
+    function getMp3Url(hypemId, hypemKey, callback) {
         var options = {
             method: "GET",
             url: HYPEM_SERVE_URL + hypemId + "/" + hypemKey,

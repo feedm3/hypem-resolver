@@ -60,12 +60,12 @@ function HypemResolver() {
                 var soundcloudUrl = getNormalizedSoundcloudUrl(songUrl);
                 callback(null, soundcloudUrl);
             } else {
-                getHypemKey(hypemId, function (error, hypemKey) {
+                requestHypemKey(hypemId, function (error, hypemKey) {
                     if (error) {
                         callback(error, null);
                         return;
                     }
-                    getMp3Url(hypemId, hypemKey, callback);
+                    requestMp3Url(hypemId, hypemKey, callback);
                 });
             }
         });
@@ -86,7 +86,7 @@ function HypemResolver() {
      * @param {Error} callback.err null if no error occurred
      * @param {string} callback.url the key to request a hypem song url
      */
-    function getHypemKey(hypemId, callback) {
+    function requestHypemKey(hypemId, callback) {
         var options = {
             method: "GET",
             url: HYPEM_TRACK_URL + hypemId,
@@ -126,7 +126,7 @@ function HypemResolver() {
      * @param {Error} callback.err null if no error occurred
      * @param {string} callback.url the mp3 url
      */
-    function getMp3Url(hypemId, hypemKey, callback) {
+    function requestMp3Url(hypemId, hypemKey, callback) {
         var options = {
             method: "GET",
             url: HYPEM_SERVE_URL + hypemId + "/" + hypemKey,

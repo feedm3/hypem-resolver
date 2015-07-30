@@ -2,10 +2,10 @@
  * Copyright 2015 Fabian Dietenberger
  * Available under MIT license
  */
+
+'use strict';
+
 function HypemResolver() {
-
-    "use strict";
-
     var request = require('request'),
         url = require('url'),
         _ = require('lodash');
@@ -161,7 +161,7 @@ function HypemResolver() {
      */
     function isSoundcloudUrl(songUrl) {
         return songUrl !== "http://soundcloud.com/not/found" &&
-            songUrl !== "https://soundcloud.com/not/found"
+            songUrl !== "https://soundcloud.com/not/found";
     }
 
     /**

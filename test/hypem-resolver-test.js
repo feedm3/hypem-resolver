@@ -1,4 +1,9 @@
-// Copyright 2015 Fabian Dietenberger
+/**
+ * Copyright 2015 Fabian Dietenberger
+ * Available under MIT license
+ */
+
+'use strict';
 
 var should = require('chai').should(),
     hypemResolver = require('../hypem-resolver');
@@ -43,7 +48,7 @@ describe('If the hypem id is given', function () {
             hypemResolver.getById(hypemIdMp3, function (err) {
                 should.not.exist(err);
                 done();
-            })
+            });
         });
     });
 
@@ -53,8 +58,8 @@ describe('If the hypem id is given', function () {
                 err.should.have.property('message');
                 err.message.should.be.a('string');
                 done();
-            })
-        })
+            });
+        });
     });
 
     describe('but the id does not exist', function () {
@@ -63,7 +68,7 @@ describe('If the hypem id is given', function () {
                 err.should.have.property('message');
                 err.message.should.be.a('string');
                 done();
-            })
+            });
         });
     });
 
@@ -73,8 +78,8 @@ describe('If the hypem id is given', function () {
                 err.should.have.property('message');
                 err.message.should.be.a('string');
                 done();
-            })
-        })
+            });
+        });
     });
 
     describe('but the id is a url path', function () {
@@ -83,8 +88,8 @@ describe('If the hypem id is given', function () {
                 err.should.have.property('message');
                 err.message.should.be.a('string');
                 done();
-            })
-        })
+            });
+        });
     });
 
     describe('but the id is not an id', function () {
@@ -93,8 +98,8 @@ describe('If the hypem id is given', function () {
                 err.should.have.property('message');
                 err.message.should.be.a('string');
                 done();
-            })
-        })
+            });
+        });
     });
 });
 

@@ -8,7 +8,8 @@
 function HypemResolver() {
     var request = require('request'),
         url = require('url'),
-        _ = require('lodash');
+        _ = require('lodash'),
+        Promise = require('bluebird');
 
     /** Used for the requests */
     var FIVE_SECONDS_IN_MILLIS = 5000,
@@ -73,7 +74,8 @@ function HypemResolver() {
 
     return {
         urlToId: urlToId,
-        getById: getById
+        getById: getById,
+        getByIdPromise: Promise.promisify(getById)
     };
     /**
      * Get the key for hypem. The key is necessary to request

@@ -46,9 +46,18 @@ hypemResolver.getById('2c96b', function (error, url) {
     if (!error) {
         console.log('The url is ' + url);
     } else {
-        console.log("Error " + error.message)
+        console.error("Error " + error.message)
     }
 });
+
+// you can also use promises instead of callbacks
+hypemResolver.getByIdPromise('2c87x')
+    .then(function (url) {
+        console.log('The url is ' + url);
+    })
+    .catch(function (error) {
+        console.error("Error" + error.message);
+    });
 ```
 
 There's also a little helper method to extract the hypem id from the song's url.

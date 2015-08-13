@@ -16,7 +16,7 @@ var hypemIdStandard = "2c87x",
     mp3 = "http://poponandon.com/wp-content/uploads/2015/06/01-Hurricane-Arty-Remix.mp3";
 
 describe('If the hypem id is given', function () {
-    this.timeout(10000);
+    this.timeout(10000); // if bandwidth is to slow
 
     describe('and the song is hosted on soundcloud', function () {
         it('should contain a soundcloud url', function (done) {
@@ -133,6 +133,47 @@ describe('Converting the hypem url to the id', function () {
             hypemId.should.be.a('string');
             hypemId.should.have.length(0);
             done();
+        });
+    });
+});
+
+describe('Use promises instead of callbacks', function () {
+    /**
+     * We just make some basics tests for the promise version because
+     * everything should work the same as with the callback version.
+     */
+
+    this.timeout(10000); // if bandwidth is to slow
+
+    describe('to get the songs url', function () {
+        it('should return the soundcloud url', function (done) {
+            hypemResolver.getByIdPromise(hypemIdStandard)
+                .then(function (soundcloudUrl) {
+                    soundcloudUrl.should.be.a('string');
+                    soundcloudUrl.should.equal(soundcloudUrlStandard);
+                    done();
+                });
+        });
+
+        it('should contain an mp3 url', function (done) {
+            hypemResolver.getByIdPromise(hypemIdMp3)
+                .then(function (mp3Url) {
+                    mp3Url.should.be.a('string');
+                    mp3Url.should.equal(mp3);
+                    done();
+                });
+        });
+
+        it('should go in catch block', function (done) {
+            hypemResolver.getByIdPromise("d")
+                .then(function (soundcloudUrl) {
+                    should.fail();
+                })
+                .catch(function (err) {
+                    err.should.have.property('message');
+                    err.message.should.be.a('string');
+                    done();
+                });
         });
     });
 });

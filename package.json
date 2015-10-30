@@ -25,13 +25,13 @@
     "url": "https://github.com/feedm3/hypem-resolver/issues"
   },
   "dependencies": {
-    "bluebird": "^2.10.2",
+    "bluebird": "^3.0.2",
     "lodash": "^3.10.1",
     "request": "^2.65.0"
   },
   "devDependencies": {
-    "chai": "^3.3.0",
-    "istanbul": "^0.3.22",
+    "chai": "^3.4.0",
+    "istanbul": "^0.4.0",
     "mocha": "^2.3.3"
   },
   "engines": {

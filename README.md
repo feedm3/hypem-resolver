@@ -1,11 +1,11 @@
 # hypem-resolver
 
-[![npm version](https://badge.fury.io/js/hypem-resolver.svg)](http://badge.fury.io/js/hypem-resolver)
-[![Build Status](https://travis-ci.org/feedm3/hypem-resolver.svg)](https://travis-ci.org/feedm3/hypem-resolver)
-[![Test Coverage](https://codeclimate.com/github/feedm3/hypem-resolver/badges/coverage.svg)](https://codeclimate.com/github/feedm3/hypem-resolver/coverage)
-[![Code Climate](https://codeclimate.com/github/feedm3/hypem-resolver/badges/gpa.svg)](https://codeclimate.com/github/feedm3/hypem-resolver)
-[![Dependency Status](https://david-dm.org/feedm3/hypem-resolver.svg)](https://david-dm.org/feedm3/hypem-resolver)
-[![Actively Maintained](https://maintained.tech/badge.svg)](https://maintained.tech/)
+[![npm version](https://img.shields.io/npm/v/hypem-resolver.svg?style=flat-square)](http://badge.fury.io/js/hypem-resolver)
+[![Build Status](https://img.shields.io/travis/feedm3/hypem-resolver.svg?style=flat-square)](https://travis-ci.org/feedm3/hypem-resolver)
+[![Test Coverage](https://img.shields.io/codeclimate/coverage/github/feedm3/hypem-resolver.svg?style=flat-square)](https://codeclimate.com/github/feedm3/hypem-resolver/coverage)
+[![Code Climate](https://img.shields.io/codeclimate/github/feedm3/hypem-resolver.svg?style=flat-square)](https://codeclimate.com/github/feedm3/hypem-resolver)
+[![Dependency Status](https://david-dm.org/feedm3/hypem-resolver.svg?style=flat-square)](https://david-dm.org/feedm3/hypem-resolver)
+[![Actively Maintained](https://maintained.tech/badge.svg?style=flat-square)](https://maintained.tech/)
 
 Package for Node to resolve a hypem song url to it's soundcloud/mp3 url.
 

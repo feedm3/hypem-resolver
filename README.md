@@ -5,7 +5,7 @@
 [![Test Coverage](https://img.shields.io/codeclimate/coverage/github/feedm3/hypem-resolver.svg?style=flat-square)](https://codeclimate.com/github/feedm3/hypem-resolver/coverage)
 [![Code Climate](https://img.shields.io/codeclimate/github/feedm3/hypem-resolver.svg?style=flat-square)](https://codeclimate.com/github/feedm3/hypem-resolver)
 [![Dependency Status](https://david-dm.org/feedm3/hypem-resolver.svg?style=flat-square)](https://david-dm.org/feedm3/hypem-resolver)
-[![Actively Maintained](https://maintained.tech/badge.svg?style=flat-square)](https://maintained.tech/)
+[![Actively Maintained](https://img.shields.io/badge/Actively%20Maintained-%E2%9C%94-brightgreen.svg?style=flat-square)](https://img.shields.io/badge/Actively%20Maintained-%E2%9C%94-brightgreen.svg?style=flat-square)
 
 Package for Node to resolve a hypem song url to it's soundcloud/mp3 url.
 

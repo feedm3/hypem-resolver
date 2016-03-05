@@ -11,6 +11,7 @@ var should = require('chai').should(),
 var hypemIdStandard = "2c87x",
     hypemUrlStandard = "http://hypem.com/track/2c87x",
     soundcloudUrlStandard = "http://soundcloud.com/griz/summer-97-ft-muzzy-bearr",
+    hypemIdForbidden = "2ey1t",
     hypemIdNoSong = "2c96b",
     hypemIdMp3 = "2c2k1",
     mp3 = "http://poponandon.com/wp-content/uploads/2015/06/01-Hurricane-Arty-Remix.mp3";
@@ -77,6 +78,24 @@ describe('If the hypem id is given', function () {
             hypemResolver.getById(null, function (err) {
                 err.should.have.property('message');
                 err.message.should.be.a('string');
+                done();
+            });
+        });
+    });
+
+    describe('but the id is forbidden (403)', function() {
+        it('no error should be thrown', function(done) {
+            hypemResolver.getById(hypemIdForbidden, function(err, song) {
+                should.not.throw(Error);
+                done();
+            });
+        });
+
+        it('should get an error object', function(done) {
+            hypemResolver.getById(hypemIdForbidden, function(err, song) {
+                should.not.exist(song);
+                err.should.not.be.null;
+                err.should.have.property('message');
                 done();
             });
         });

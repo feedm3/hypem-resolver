@@ -147,7 +147,6 @@ function HypemResolver() {
                 } catch (error) {
                     callback(error, null);
                 }
-
             } else {
                 callback(new Error("Nothing found: " + options.url), null);
             }

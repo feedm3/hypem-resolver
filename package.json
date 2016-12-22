@@ -25,7 +25,7 @@
     "url": "https://github.com/feedm3/hypem-resolver/issues"
   },
   "dependencies": {
-    "bluebird": "^3.3.3",
+    "bluebird": "^3.4.7",
     "lodash": "^4.6.1",
     "request": "^2.69.0"
   },
